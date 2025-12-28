@@ -26,5 +26,7 @@ public class Temperature
 
     private int CToF(int c) => c * 9 / 5 + 32;
     private int FToC(int f) => (f - 32) * 5 / 9;
+    
+    
 
 }

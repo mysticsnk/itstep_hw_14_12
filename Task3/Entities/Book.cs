@@ -18,7 +18,7 @@ public class Book
 
     public override bool Equals(object? obj)
     {
-        if (obj == null)
+        if (obj == null || GetType() != obj.GetType())
             return false;
         
         Book other = obj as Book;
@@ -28,4 +28,6 @@ public class Book
                && Author == other.Author 
                && Year == other.Year;
     }
+    
+    public override int GetHashCode() => HashCode.Combine(Name, Description, Author, Year);
 }

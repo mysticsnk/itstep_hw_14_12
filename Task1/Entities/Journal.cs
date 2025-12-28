@@ -19,24 +19,38 @@ class Journal
         WorkerAmount = workerAmount;
     }
 
-    public void operator +=(int increment) => WorkerAmount += increment;
-    public void operator -=(int decrement) => WorkerAmount -= decrement;
-
+    public static Journal operator +(Journal j, int increment)
+    {
+        return new Journal(j.Name, j.Year, j.Description, j.PhoneNumber, j.Email, j.WorkerAmount + increment);
+    }
+    
+    public static Journal operator -(Journal j, int decrement)
+    {
+        return new Journal(j.Name, j.Year, j.Description, j.PhoneNumber, j.Email, j.WorkerAmount - decrement);
+    }
+    
     public static bool operator ==(Journal journal1, Journal journal2) => journal1.WorkerAmount == journal2.WorkerAmount;
     public static bool operator !=(Journal journal1, Journal journal2) => journal1.WorkerAmount != journal2.WorkerAmount;
 
     public static bool operator <(Journal journal1, Journal journal2) => journal1.WorkerAmount < journal2.WorkerAmount;
     public static bool operator >(Journal journal1, Journal journal2) => journal1.WorkerAmount > journal2.WorkerAmount;
 
-    public static bool Equals(Journal journal1, Journal journal2)
+    public override bool Equals(object? obj)
     {
-        return journal1.Name == journal2.Name 
-            && journal1.Year == journal2.Year
-            && journal1.Description == journal2.Description
-            && journal1.PhoneNumber == journal2.PhoneNumber
-            && journal1.Email == journal2.Email
-            && journal1.WorkerAmount == journal2.WorkerAmount;
+        if (obj == null || GetType() != obj.GetType())
+            return false;
+        
+        var other = obj as Journal;
+        
+        return Name == other.Name 
+            && Year == other.Year
+            && Description == other.Description
+            && PhoneNumber == other.PhoneNumber
+            && Email == other.Email
+            && WorkerAmount == other.WorkerAmount;
     }
+
+    public override int GetHashCode() => HashCode.Combine(Name, Year, Description, PhoneNumber, Email, WorkerAmount);
 
     public override string ToString() => $"{Name}, {Year}, {Description}, {PhoneNumber}, {Email}, {WorkerAmount}"; 
 }

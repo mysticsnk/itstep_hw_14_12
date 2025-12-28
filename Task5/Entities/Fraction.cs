@@ -3,8 +3,17 @@ namespace Task5.Entities;
 public class Fraction
 {
     private int _denominator;
+    private int _numerator;
     
-    public int Numerator { get; set; }
+    public int Numerator
+    {
+        get => _numerator;
+        set
+        {
+            _numerator = value;
+            Simplify();
+        }
+    }
 
     public int Denominator
     {
@@ -15,6 +24,7 @@ public class Fraction
                 throw new DivideByZeroException();
             
             _denominator = value;
+            Simplify();
         }
     }
     
@@ -22,9 +32,22 @@ public class Fraction
     {
         Denominator = denominator;
         Numerator = numerator;
+        Simplify();
     }
     
     public Fraction() : this(0, 1) {}
+
+    public void Simplify()
+    {
+        for (int i = 2; i <= Math.Min(Denominator, Numerator); i++)
+        {
+            if (Numerator % i == 0 && Denominator % i == 0)
+            {
+                Numerator /= i;
+                Denominator /= i;
+            }
+        }
+    }
 
     public static Fraction operator +(Fraction a, Fraction b)
     {
@@ -64,6 +87,20 @@ public class Fraction
     }
     
     public static bool operator !=(Fraction a, Fraction b) =>  !(a == b);
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || GetType() != obj.GetType()) return false;
+        
+        var other = obj as Fraction;
+        
+        return Denominator == other.Denominator && Numerator == other.Numerator;
+    }
     
-    
+    public override int GetHashCode() => HashCode.Combine(Denominator, Numerator);
+
+    public override string ToString()
+    {
+        return $"{Numerator}/{Denominator}";
+    }
 }

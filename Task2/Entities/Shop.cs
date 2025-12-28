@@ -19,8 +19,8 @@ class Shop
         Area = area;
     }
     
-    public void operator += (int increment) => Area += increment;
-    public void operator -= (int decrement) => Area -= decrement;
+    public static Shop operator+(Shop s, int increment) => new Shop(s.Name, s.Address,  s.Description, s.PhoneNumber, s.Email, s.Area + increment);
+    public static Shop operator-(Shop s, int decrement) => new Shop(s.Name, s.Address,  s.Description, s.PhoneNumber, s.Email, s.Area - decrement);
     
     public static bool operator == (Shop shop1, Shop shop2) => shop1.Area == shop2.Area;
     public static bool operator != (Shop shop1, Shop shop2) => shop1.Area != shop2.Area;
@@ -28,13 +28,22 @@ class Shop
     public static bool operator < (Shop shop1, Shop shop2) => shop1.Area < shop2.Area;
     public static bool operator > (Shop shop1, Shop shop2) => shop1.Area > shop2.Area;
 
-    public bool Equals(Shop other)
+    public override bool Equals(object? obj)
     {
+        if (obj == null || GetType() != obj.GetType())  return false;
+        
+        Shop other =  obj as Shop;
+        
         return Name == other.Name
                && Address == other.Address
                && PhoneNumber == other.PhoneNumber
                && Email == other.Email
                && Area == other.Area;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Name, Address, Description, PhoneNumber, Email, Area);
     }
 
     public override string ToString() => $"{Name}, {Address}, {PhoneNumber}, {Email}, {Area}";

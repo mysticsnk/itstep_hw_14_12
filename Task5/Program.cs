@@ -4,25 +4,26 @@ var a = new Fraction(1, 2);
 var b = new Fraction(1, 3);
 var c = new Fraction();
 
-Console.WriteLine($"{a.Numerator}/{a.Denominator}");
-Console.WriteLine($"{b.Numerator}/{b.Denominator}");
-Console.WriteLine($"{c.Numerator}/{c.Denominator}");
+Console.WriteLine(a);
+Console.WriteLine(b);
+Console.WriteLine(c);
 
 var add = a + b;
-Console.WriteLine($"{add.Numerator}/{add.Denominator}");
+Console.WriteLine(add);
 
 var sub = a - b;
-Console.WriteLine($"{sub.Numerator}/{sub.Denominator}");
+Console.WriteLine(sub);
 
-var mul = a * b;
-Console.WriteLine($"{mul.Numerator}/{mul.Denominator}");
+var mult = a * b;
+Console.WriteLine(mult);
 
 var div = a / b;
-Console.WriteLine($"{div.Numerator}/{div.Denominator}");
+Console.WriteLine(div);
 
 var x = new Fraction(2, 4);
 var y = new Fraction(1, 2);
 
+Console.WriteLine("--- Equal fractions are equal ---");
 Console.WriteLine(x == y);
 Console.WriteLine(a == new Fraction(1, 2));
 
