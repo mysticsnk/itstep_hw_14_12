@@ -28,9 +28,11 @@ public class BookList
         if (obj == null || GetType() != obj.GetType()) return false;
         
         var other = obj as BookList;
+        
+        if (_books.Capacity != other._books.Capacity) return false;
 
-        foreach (var book in _books)
-            if (!book.Equals(other)) return false;
+        for (int i = 0; i < _books.Capacity; i++)
+            if (!_books[i].Equals(other[i])) return false;
         
         return true;
     }
